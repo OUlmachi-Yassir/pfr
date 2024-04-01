@@ -10,19 +10,20 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
     public function create(){
-        return view('contact.create');
+        return view('auth.register');
     }
     public function store(Request $request){
     $input =$request->all();
-    User::create([
+    $user =User::create([
         'name'=>$input['name'],
         'email'=>$input['email'],
         'password'=>Hash::make($input['password']),
         'role' => $request->role,
     ]);
+    Auth::login($user);
     // Redirect based on role
     if ($request->role === 'utilisateur') {
-        return redirect()->route('info.form');
+        return redirect()->route('info.form', ['id' => $user->id]);
     } elseif ($request->role === 'entreprise') {
         return redirect()->route('enterprise.info');
     } elseif ($request->role === 'freelancer') {

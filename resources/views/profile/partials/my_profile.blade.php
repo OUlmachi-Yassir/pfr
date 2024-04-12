@@ -26,7 +26,7 @@
 
             <span>{{ $user->profile->address}}</span>
           </button>
-          <a href="{{ route('download-pdf') }}" type="button" class="cursor-pointer transition-all 
+          <a href="xx" type="button" class="cursor-pointer transition-all 
 bg-gray-700 text-white px-6 py-2 rounded-lg
 border-green-400
 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]

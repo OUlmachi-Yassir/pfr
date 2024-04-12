@@ -68,6 +68,7 @@
             @if(auth()->user()->role === 'entreprise')
             <x-responsive-nav-link :href="route('myPost')" :active="request()->routeIs('myPost')">
                         {{ __('My-Post') }}
+                        h
             </x-responsive-nav-link>
             @endif
         </div>
@@ -91,3 +92,5 @@
         </div>
     </div>
 </nav>
+
+

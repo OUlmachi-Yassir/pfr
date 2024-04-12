@@ -6,15 +6,19 @@ use App\Models\Jobe;
 use App\Models\Enterprise;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class jobeController extends Controller
 {
 
     public function index()
-    {
-        $jobes = Jobe::all();
-        return view('myPost', compact('jobes'));
-    }
+{
+    $enterpriseId = Auth::user()->enterprise->id;
+
+    $jobes = Jobe::where('enterprise_id', $enterpriseId)->get();
+
+    return view('myPost', compact('jobes'));
+}
             
     public function anotherPgae()
     {

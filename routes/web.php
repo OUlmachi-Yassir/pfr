@@ -46,6 +46,7 @@ Route::post('/check',[LoginController::class,'check'])->name('check');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
+
 Route::post('/enterprise-info', [EnterpriseInfoController::class, 'store'])->name('enterprise.info.store');
 Route::get('/enterprise-info', [EnterpriseInfoController::class, 'entrepriseinfo'])->name('enterprise.info');
 

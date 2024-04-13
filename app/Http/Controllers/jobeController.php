@@ -19,6 +19,7 @@ class jobeController extends Controller
 
     return view('myPost', compact('jobes'));
 }
+
             
     public function anotherPgae()
     {
@@ -143,6 +144,8 @@ public function ajaxSearch(Request $request)
         
         return view('dashboard', compact('jobes', 'userCount', 'enterpriseCount', 'jobCount'));
     }
+    
+    
 
 }
 

@@ -158,7 +158,7 @@
                                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Company: {{ $jobe->enterprise->industrie }}</p>
                                             <div class="mt-4 flex items-center justify-between">
                                                 <a href="{{ route('jobe.edit', $jobe->id) }}" class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-200">Edit</a>
-                                                <form action="{{ route('jobe.destroy', $jobe->id) }}" method="POST">
+                                                <form action="{{ route('jobe.delete', $jobe->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-200">Delete</button>

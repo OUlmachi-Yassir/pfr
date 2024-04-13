@@ -10,15 +10,22 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+        <link href='https://fonts.googleapis.com/css?family=Zen Dots' rel='stylesheet'>
 
         <!-- Styles -->
+        <style>
+          .workwise{
+            font-family: 'Zen Dots';font-size: 22px;
+          }
+        </style>
         
     </head>
     <body class="">
-<nav class="mx-4 shadow-xl rounded-full hover:border-slate-400">
+<nav class="mx-4 shadow-xl  rounded-full hover:border-slate-400">
     <div class=" flex flex-wrap items-center justify-between my-2 mx-4">
-        <a href="#" class="flex">
-        <img src="{{ asset('images/logo1.png') }}" class="block mx-auto w-28 bg-cover bg-center" alt="Logo">
+        <a href="#" class="flex items-center">
+        <img src="{{ asset('images/olm.png') }}" class="block ml-4 h-14 my-1 bg-cover bg-center" alt="Logo">
+        <span class="workwise mb-1 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-orange-500 font-zenDots">W-W</span>
         </a>
         <button data-collapse-toggle="mobile-menu" type="button" class="md:hidden ml-3 text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300 rounded-lg inline-flex items-center justify-center" aria-controls="mobile-menu-2" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
@@ -28,7 +35,7 @@
         <div class="hidden md:block w-full md:w-auto" id="mobile-menu">
         <ul class="flex-col md:flex-row flex md:space-x-8 mt-4 md:mt-0 md:text-sm md:font-medium">
             <li>
-            <a href="#" class="bg-blue-700 md:bg-transparent text-white block pl-3 pr-4 py-2 md:text-blue-700 md:p-0 rounded focus:outline-none" aria-current="page">Home</a>
+            <a href="{{url('/')}}" class="bg-blue-700 md:bg-transparent text-white block pl-3 pr-4 py-2 md:text-blue-700 md:p-0 rounded focus:outline-none" aria-current="page">Home</a>
             </li>
             <li>
                 <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0 font-medium flex items-center justify-between w-full md:w-auto">Dropdown <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
@@ -41,7 +48,7 @@
                     </li>
                     @else
                       <li>
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                        <a href="{{ route('login') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
                       </li>
                           @if (Route::has('register'))
                           <li>
@@ -54,8 +61,12 @@
                 </div>
             </li>
            </li>
+           <li>
+            
+           </li>
         </ul>
         </div>
+        
     </div>
     </nav>
 

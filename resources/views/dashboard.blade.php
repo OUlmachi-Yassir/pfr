@@ -83,8 +83,12 @@
 <br>
     <div id="searchResults"></div>
     <br><br>
-    
-    <div class="card m-auto text-gray-300 w-[clamp(260px,80%,300px)] hover:brightness-90 transition-all cursor-pointer group bg-gradient-to-tl from-gray-900 to-gray-950 hover:from-gray-800 hover:to-gray-950 border-r-2 border-t-2 border-gray-900 m-4 rounded-lg overflow-hidden relative">
+
+
+
+
+    <div class="flex flex-wrap relative justify-center gap-5">
+    <div class="card sticky  top-0 left-0 text-gray-300 w-[clamp(260px,80%,300px)] h-60 hover:brightness-90 transition-all cursor-pointer group bg-gradient-to-tl from-gray-900 to-gray-950 hover:from-gray-800 hover:to-gray-950 border-r-2 border-t-2 border-gray-900 m-4 rounded-lg overflow-hidden relative">
       <div class="px-[50px] py-4">
         <div class="bg-orange-500 w-10 h-10 rounded-full rounded-tl-none mb-4 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-red-900 transition-all"></div>
         <div class="uppercase font-bold text-xl">
@@ -106,44 +110,40 @@
     </div>
     <br><br>
 
-    <div id="jobCardsContainer"  class="flex flex-wrap justify ml-20 gap-10 items-center">
+    <div id="jobCardsContainer" class="flex flex-col items-center">
     @foreach ($jobes as $jobe)
-      <div class="group flex flex-col justify-start items-start gap- w-96 h-70 duration-500 relative rounded-lg p-4 bg-gray-400 hover:-translate-y-2 hover:shadow-xl shadow-gray-800">
-        <div alt="image here"
-          class="absolute duration-700 shadow-md group-hover:-translate-y-4 group-hover:-translate-x-4  -right-10 w-1/2 h-1/2 rounded-lg bg-gray-800">
-          <img src="{{asset('images/' . $jobe->enterprise->logo)}}" class="">  
-      </div>
-
+    <div class="group flex flex-col justify-start items-start gap- w-[500px] h-70 duration-500 relative rounded-lg p-4 bg-gray-400 hover:-translate-y-2 hover:shadow-xl shadow-gray-800">
+        
         <div class="">
-          <h2 class="text-2xl font-bold mb-2 text-gray-100">Dark Card</h2>
-          <div class="font-semibold text-lg">{{ $jobe->titre }}</div>
-                  <div class="mt-2 text-gray-600">{{ $jobe->discreption }}</div>
-                  <div class="mt-2 text-gray-600">Compétence: {{ $jobe->competence }}</div>
-                  <div class="mt-2 text-gray-600">Type: {{ $jobe->type }}</div> 
-                  <div class="mt-2 text-gray-600">Company: {{ $jobe->enterprise->industrie }}</div>
+            <h2 class="text-2xl font-bold mb-2 text-gray-100">Dark Card</h2>
+            <div class="font-semibold text-lg">{{ $jobe->titre }}</div>
+            <div class="mt-2 text-gray-600">Type: {{ $jobe->type }}</div> 
+            <div class="mt-2 text-gray-600">Company: {{ $jobe->enterprise->industrie }}</div>
         </div>
-        <br>
-        <button class="hover:bg-gray-700 bg-gray-800 text-gray-100 mt-6 rounded p-2 px-6" onclick="openForm({{ $jobe->id }})">
+        
+        <button class="hover:bg-gray-700 bg-gray-800 text-gray-100 mt-6 rounded p-2 px-6" onclick="toggleCard('{{ $jobe->id }}')">
             Apply Now
         </button>
 
-        <!-- Form to Insert User ID and Job ID -->
-        <div id="formContainer{{ $jobe->id }}" class="hidden">
-        <form action="{{ route('jobe.apply', ['jobeId' => $jobe->id]) }}" method="POST" enctype="multipart/form-data">
+        <!-- Additional card content -->
+        <!-- Add the additional content you want to display here -->
+
+        <!-- Hide card content -->
+        <div id="cardContent{{ $jobe->id }}" class="hidden">
+        <div class="">
+            <h2 class="text-2xl font-bold mb-2 text-gray-100">Dark Card</h2>
+            <div class="font-semibold text-lg">{{ $jobe->titre }}</div>
+            <div class="mt-2 text-gray-600">Type: {{ $jobe->type }}</div> 
+            <div class="mt-2 text-gray-600">Company: {{ $jobe->enterprise->industrie }}</div>
+        </div>
+            <!-- Form to Insert User ID and Job ID -->
+            <form action="{{ route('jobe.apply', ['jobeId' => $jobe->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="job_id" value="{{ $jobe->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <div class="grid w-full max-w-xs items-center gap-1.5">
-                <label
-                    class="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >Resume-fill</label
-                >
-                <input
-                    class="flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium"
-                    type="file"
-                    name="cv"
-                    required
-                />
+                    <label class="text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Resume-fill</label>
+                    <input class="flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium" type="file" name="cv" required />
                 </div>
                 <button type="submit" class="hover:bg-gray-700 bg-gray-800 text-gray-100 mt-6 rounded p-2 px-6">Submit</button>
             </form>
@@ -153,8 +153,30 @@
     @endforeach
 </div>
 
+<div class="cartContainer">
+    <!-- This container will display the clicked card with the form -->
+</div>
 
-    
+<script>
+    function toggleCard(cardId) {
+        // Hide all card containers
+        const cardContainers = document.querySelectorAll('[id^="cardContent"]');
+        cardContainers.forEach(container => {
+            container.classList.add('hidden');
+        });
+
+        // Show the clicked card container
+        const clickedCardContainer = document.getElementById('cardContent' + cardId);
+        clickedCardContainer.classList.remove('hidden');
+
+        // Append the clicked card container to the cartContainer
+        const cartContainer = document.querySelector('.cartContainer');
+        cartContainer.innerHTML = '';
+        cartContainer.appendChild(clickedCardContainer);
+    }
+</script>
+
+</div>
 
 <script>
     function openForm(jobId) {

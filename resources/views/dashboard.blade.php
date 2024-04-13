@@ -112,17 +112,20 @@
 
     <div id="jobCardsContainer" class="flex flex-col items-center">
     @foreach ($jobes as $jobe)
-    <div class="group flex flex-col justify-start items-start gap- w-[500px] h-70 duration-500 relative rounded-lg p-4 bg-gray-400 hover:-translate-y-2 hover:shadow-xl shadow-gray-800">
+    <div class="bg-gradient-to-l from-slate-300 to-slate-100 text-slate-600 border border-slate-300 grid grid-col-2 rounded-lg  p-4 gap-4  w-[500px] hover:-translate-y-2 hover:shadow-xl shadow-gray-800">
         
         <div class="">
-            <h2 class="text-2xl font-bold mb-2 text-gray-100">Dark Card</h2>
             <div class="font-semibold text-lg">{{ $jobe->titre }}</div>
             <div class="mt-2 text-gray-600">Type: {{ $jobe->type }}</div> 
-            <div class="mt-2 text-gray-600">Company: {{ $jobe->enterprise->industrie }}</div>
+            <div class="mt-2 text-gray-600 flex items-center"><span class="w-6"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAqklEQVR4nO2WwQ6AIAxD+f+frhcPxigELG6UvoSDMzF5ssJKMesB0goHaiKjWOQr7NYIazWoiczCIqw/dq/3PrfqdORFWFgk645MH3nwU0ZkREaBRSbvCOu74cevjEgvcEbUMgKLJMsIC1kROCMNPGuVzYdGqIwoUBGRaS0ZEfge2b21WMiKIDoj11rt3TYivcAiJ26tbBl5opaRN8IzsqwIkq8mMiKmBHIAGcKdfwldIgoAAAAASUVORK5CYII="></span> {{ $jobe->enterprise->industrie }}</div>
         </div>
         
-        <button class="hover:bg-gray-700 bg-gray-800 text-gray-100 mt-6 rounded p-2 px-6" onclick="toggleCard('{{ $jobe->id }}')">
-            Apply Now
+        <button class="rounded-md bg-slate-300 hover:bg-slate-600 hover:text-slate-200 duration-300 p-2" onclick="toggleCard('{{ $jobe->id }}')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
         </button>
 
         <!-- Additional card content -->
@@ -159,17 +162,14 @@
 
 <script>
     function toggleCard(cardId) {
-        // Hide all card containers
         const cardContainers = document.querySelectorAll('[id^="cardContent"]');
         cardContainers.forEach(container => {
             container.classList.add('hidden');
         });
 
-        // Show the clicked card container
         const clickedCardContainer = document.getElementById('cardContent' + cardId);
         clickedCardContainer.classList.remove('hidden');
 
-        // Append the clicked card container to the cartContainer
         const cartContainer = document.querySelector('.cartContainer');
         cartContainer.innerHTML = '';
         cartContainer.appendChild(clickedCardContainer);

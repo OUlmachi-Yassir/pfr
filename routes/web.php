@@ -59,7 +59,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');       
 Route::get('/myPost', function () {
     return view('myPost');
-})->middleware(['auth', 'verified'])->name('myPost');   
+})->middleware(['auth', 'verified'])->name('myPost'); 
+
+
+// routes/web.php
+
+use App\Http\Controllers\FreelancerController;
+
+Route::get('/freeInfo', [FreelancerController::class, 'freeInfo'])->name('freelancer.info');
+Route::post('/freelancers', [FreelancerController::class, 'store'])->name('freelancers.store');
+Route::get('/freelancers', [FreelancerController::class, 'index'])->name('freelancers.index');
+
 
 // User routes
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');

@@ -70,15 +70,14 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        // Find the post by ID
         $post = Post::findOrFail($id);
+    
+
         
-        // Check if the authenticated user is the owner of the post
-        if ($post->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $post->delete();
-
+    
         return redirect()->back()->with('success', 'Post deleted successfully!');
     }
+    
 }

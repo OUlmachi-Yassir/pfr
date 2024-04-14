@@ -119,7 +119,7 @@ public function ajaxSearch(Request $request)
     $jobe->update($validatedData);
     
     // Redirect back with a success message
-    return redirect()->back()->with('success', 'Job updated successfully.');
+    return redirect('myPost')->with('success', 'Job updated successfully.');
 }
 
 

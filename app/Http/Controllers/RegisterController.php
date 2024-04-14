@@ -27,7 +27,7 @@ class RegisterController extends Controller
     } elseif ($request->role === 'entreprise') {
         return redirect()->route('enterprise.info');
     } elseif ($request->role === 'freelancer') {
-        return redirect()->route('freelincer.info');
+        return redirect()->route('freelancer.info');
     }
     }
 }

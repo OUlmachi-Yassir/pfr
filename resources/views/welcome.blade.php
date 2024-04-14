@@ -17,10 +17,15 @@
           .workwise{
             font-family: 'Zen Dots';font-size: 22px;
           }
+
+          .oooo{
+            background: rgb(236,236,236);
+            background: radial-gradient(circle, rgba(236,236,236,1) 0%, rgba(178,210,248,1) 100%);
+          }
         </style>
         
     </head>
-    <body class="">
+    <body class="oooo">
 <nav class="mx-4 shadow-xl  rounded-full hover:border-slate-400">
     <div class=" flex flex-wrap items-center justify-between my-2 mx-4">
         <a href="#" class="flex items-center">

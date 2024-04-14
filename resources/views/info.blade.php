@@ -1,5 +1,5 @@
 <!-- info.blade.php -->
-<form method="POST" action="{{ route('profile.save') }}">
+<form method="POST" action="{{ route('profile.save') }}" enctype="multipart/form-data">
     @csrf
 
     <label for="profile_picture">Profile Picture:</label>

@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Laravel</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
         <link href='https://fonts.googleapis.com/css?family=Zen Dots' rel='stylesheet'>
 
-
-    </head>
-    <style>
+        <!-- Styles -->
+        <style>
           .workwise{
             font-family: 'Zen Dots';font-size: 22px;
           }
+
+          .oooo{
+            background: rgb(236,236,236);
+            background: radial-gradient(circle, rgba(236,236,236,1) 0%, rgba(178,210,248,1) 100%);
+          }
         </style>
-    </body>
-    </html>
+        
+    </head>
+    <body class="oooo">
    
 <div class="">
     
@@ -194,6 +204,7 @@
 </script>
 
 </div>
+</body>
 
 <script>
     function openForm(jobId) {

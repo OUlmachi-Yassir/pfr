@@ -102,6 +102,7 @@ public function ajaxSearch(Request $request)
         // Return the view for editing the job
         return view('editJobe', compact('jobe'));
     }
+    
     public function update(Request $request, $id)
 {
     // Find the job with the given ID

@@ -53,6 +53,11 @@
                     <li>
                         <a href="{{route('dashboard')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
                     </li>
+                    @if(auth()->user()->role === 'freelancer')
+                    <li>
+                        <a href="{{route('freelancers.index')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Project</a>
+                    </li>
+                    @endif
                     <li>
                         <a href="{{route('profile.edit')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Profile</a>
                     </li>

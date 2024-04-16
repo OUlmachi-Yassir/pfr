@@ -70,7 +70,6 @@ Route::get('/freeInfo', [FreelancerController::class, 'freeInfo'])->name('freela
 Route::post('/freelancers', [FreelancerController::class, 'store'])->name('freelancers.store');
 Route::get('/freelancers', [FreelancerController::class, 'index'])->name('freelancers.index');
 
-
 // User routes
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');

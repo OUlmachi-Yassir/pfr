@@ -13,6 +13,8 @@
             <select id="role" name="role" required>
                 <option value="utilisateur">Utilisateur</option>
                 <option value="entreprise">Entreprise</option>
+                <option value="freelancer">Freelancer</option>
+
             </select>           
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>

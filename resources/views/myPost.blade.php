@@ -211,48 +211,7 @@
 </div>
 
 
-<div id="editModal" class="modal hidden fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
-    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-        <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
-            <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                <path d="M18 1.42L16.56 0 9 7.56 1.44 0 0 1.41 7.56 9 0 16.56 1.44 18 9 10.44 16.56 18l1.44-1.41L10.44 9 18 1.42z"/>
-            </svg>
-            <span class="text-sm">(Esc)</span>
-        </div>
-        <!-- Contenu du formulaire d'édition -->
-        <div class="modal-content py-4 text-left px-6">
-            <!-- Your edit job form goes here -->
-                <form action="{{ route('jobe.update', $jobe->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="mb-4">
-                    <label for="titre" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
-                    <input type="text" name="titre" id="titre" value="{{ $jobe->titre }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label for="discreption" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
-                    <textarea name="discreption" id="discreption" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ $jobe->discreption }}</textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="competence" class="block text-gray-700 text-sm font-bold mb-2">Skills/Competencies:</label>
-                    <input type="text" name="competence" id="competence" value="{{ $jobe->competence }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="mb-4">
-                    <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Type:</label>
-                    <select name="type" id="type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="à distance" {{ $jobe->type === 'à distance' ? 'selected' : '' }}>Remote</option>
-                        <option value="hybride" {{ $jobe->type === 'hybride' ? 'selected' : '' }}>Hybrid</option>
-                        <option value="à temps plein" {{ $jobe->type === 'à temps plein' ? 'selected' : '' }}>Full-time</option>
-                    </select>
-                </div>
-                <div class="flex items-center justify-between">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<
 
 
 

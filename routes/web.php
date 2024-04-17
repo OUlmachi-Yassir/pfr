@@ -30,6 +30,7 @@ use Illuminate\Validation\ValidationException;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/register', function () {
     return view('register');
 })->name('register');
@@ -39,10 +40,10 @@ Route::get('/register', function () {
 Route::get('/login', function () {
     return view('auth.login'); // Adjusted to look for the login view inside the auth folder
 })->name('login');
-Route::get('/register',[RegisterController::class,'create']);
-Route::post('/register',[RegisterController::class,'store'])->name('register');
-Route::post('/login',[LoginController::class,'index'])->name('login');
-Route::post('/check',[LoginController::class,'check'])->name('check');
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store'])->name('register');
+Route::post('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/check', [LoginController::class, 'check'])->name('check');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
@@ -56,10 +57,10 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');       
+})->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/myPost', function () {
     return view('myPost');
-})->middleware(['auth', 'verified'])->name('myPost'); 
+})->middleware(['auth', 'verified'])->name('myPost');
 
 
 // routes/web.php
@@ -69,6 +70,14 @@ use App\Http\Controllers\FreelancerController;
 Route::get('/freeInfo', [FreelancerController::class, 'freeInfo'])->name('freelancer.info');
 Route::post('/freelancers', [FreelancerController::class, 'store'])->name('freelancers.store');
 Route::get('/freelancers', [FreelancerController::class, 'index'])->name('freelancers.index');
+Route::get('/profile', [FreelancerController::class, 'showfreelancer'])->name('freelancer.show');
+
+
+use App\Http\Controllers\ProjectController;
+
+Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
+Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
+
 
 // User routes
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
@@ -135,7 +144,7 @@ Route::get('/dashboard', [UserController::class, 'statistics'])->name('dashboard
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');  
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
@@ -159,7 +168,4 @@ Route::post('/jobe/{jobeId}/apply', [jobeController::class, 'apply'])->name('job
 Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.delete');
 Route::get('/myPost', [PostController::class, 'alo'])->name('myPost');
 
-Route::post('newsletter',NewsletterController::class);
-
-
-
+Route::post('newsletter', NewsletterController::class);

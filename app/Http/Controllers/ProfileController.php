@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\freelancer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,21 +19,24 @@ class ProfileController extends Controller
      * Display the user's profile form.
      */
 
-     public function index()
+    public function index()
     {
         $current_userid = Auth()->user()->id;
-        $userinfo = User::where('id','=',$current_userid)->first();
-        $userprofile = Profile::where('user_id','=',$current_userid)->first();
+        $userinfo = User::where('id', '=', $current_userid)->first();
+        
+        $userprofile = Profile::where('user_id', '=', $current_userid)->first();
     }
 
 
     public function edit(Request $request): View
     {
         $current_userid = Auth()->user()->id;
-        $userinfo = User::where('id','=',$current_userid)->first();
-        $userprofile = Profile::where('user_id','=',$current_userid)->first();
+        $userinfo = User::where('id', '=', $current_userid)->first();
+        $userprofile = Profile::where('user_id', '=', $current_userid)->first();
+        $freelancer = freelancer::where('user_id', '=', $current_userid)->first();
         return view('profile.edit', [
             'user' => $request->user(),
+            'freelancer' => $freelancer,
         ]);
     }
 
@@ -85,9 +89,9 @@ class ProfileController extends Controller
     public function saveProfile(Request $request)
     {
 
-        $imageName = null; 
+        $imageName = null;
         if ($request->hasFile('profile_picture')) {
-            
+
             $imageName = time() . '.' . $request->file('profile_picture')->getClientOriginalExtension();
             $request->file('profile_picture')->move(public_path('images'), $imageName);
         }
@@ -109,34 +113,31 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile;
-ddd($profile);
         return view('profile', compact('user', 'profile'));
-    
     }
     public function showResume()
-{
-    $user = Auth::user();
-    $profile = $user->profile;
+    {
+        $user = Auth::user();
+        $profile = $user->profile;
 
-    return view('profile.resume', compact('user', 'profile'));
-}
-public function editProfile()
-{
-    $user = auth()->user();
-    $profile = $user->profile;
+        return view('profile.resume', compact('user', 'profile'));
+    }
+    public function editProfile()
+    {
+        $user = auth()->user();
+        $profile = $user->profile;
+        $freelancer = freelancer::where('user_id', '=', $user)->first();
 
-    return view('profile.edit', compact('user', 'profile'));
-}
+        return view('profile.edit', compact('user', 'profile','freelancer'));
+    }
 
-public function updateProfile(Request $request)
-{
-    $user = auth()->user();
-    $profile = $user->profile;
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $profile = $user->profile;
 
-    $profile->update($request->only(['industry', 'address', 'contact_information']));
+        $profile->update($request->only(['industry', 'address', 'contact_information']));
 
-    return redirect()->route('my_profile.edit')->with('success', 'Profile updated successfully!');
-}
-
-    
+        return redirect()->route('my_profile.edit')->with('success', 'Profile updated successfully!');
+    }
 }

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->integer('experience')->nullable();
             $table->text('discreption')->nullable();
+            $table->string('lieux')->nullable();
+            $table->enum('fonction',['develloper','designer','artiste'])->nullable();
             $table->timestamps();
         });
         

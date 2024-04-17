@@ -211,7 +211,32 @@
 </div>
 
 
-<
+<form action="{{ route('projects.store') }}" method="POST">
+    @csrf
+    <input type="hidden" name="enterprise_id" value="{{ $enterprise_id }}">
+    
+    <div>
+        <label for="name">Nom du projet:</label>
+        <input type="text" name="name" id="name" required>
+    </div>
+    
+    <div>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"></textarea>
+    </div>
+    
+    <div>
+        <label for="type">Type:</label>
+        <select name="type" id="type" required>
+            <option value="IT development">IT development</option>
+            <option value="Design">Design</option>
+            <option value="Art">Art</option>
+        </select>
+    </div>
+    
+    <button type="submit">Créer Projet</button>
+</form>
+
 
 
 

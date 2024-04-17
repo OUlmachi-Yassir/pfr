@@ -28,7 +28,7 @@ class LoginController extends Controller
             } elseif ($user->role === 'admin') {
                 return redirect('/');
             }else{
-                return redirect()->route('dashboard.freelancer');
+                return redirect()->route('freelancers.index');
             }
 
         }

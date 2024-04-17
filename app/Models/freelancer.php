@@ -15,5 +15,14 @@ class freelancer extends Model
         'slogan',
         'industrie',
         'discreption',
+        'lieux',
+        'fonction',
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
 }

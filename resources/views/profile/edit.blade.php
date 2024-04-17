@@ -74,7 +74,11 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            @if(Auth::user()->role === 'utilisateur')
+            @if(Auth::user()->role === 'freelancer')
+            <div class=" flex flex-col justify-center">
+                    @include('profile.partials.freelancer')
+                </div>
+            @elseif(Auth::user()->role === 'utilisateur')
         
                 <div class=" flex flex-col justify-center">
                     @include('profile.partials.my_profile')

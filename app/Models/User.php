@@ -41,6 +41,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Enterprise::class);
     }
+    public function freelancer()
+    {
+        return $this->hasOne(freelancer::class);
+    }
 
     public function languages()
     {

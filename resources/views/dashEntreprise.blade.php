@@ -67,22 +67,62 @@
 </div>
 
 <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
-   
-<div class="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg dark:bg-gray-800">
-    <div class="flex justify-center -mt-16 md:justify-end">
-        <img class="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" alt="Testimonial avatar" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80">
-    </div>
+<div class=" flex flex-wrap justify-center gap-3">
+    
+@foreach ($freelancers as $freelancer) 
+<div class="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
+    <img class="object-cover w-full h-56"src="{{ asset('images/' . $freelancer->logo) }}" alt="{{ $freelancer->user->name }}">
 
-    <h2 class="mt-2 text-xl font-semibold text-gray-800 dark:text-white md:mt-0">Design Tools</h2>
-
-    <p class="mt-2 text-sm text-gray-600 dark:text-gray-200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores deserunt ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis pariatur minus consequuntur!</p>
-
-    <div class="flex justify-end mt-4">
-        <a href="#" class="text-lg font-medium text-blue-600 dark:text-blue-300" tabindex="0" role="link">John Doe</a>
+    <div class="py-5 text-center">
+        <a href="#" class="block text-xl font-bold text-gray-800 " tabindex="0" role="link">{{ $freelancer->user->name }}</a>
+        <span class="text-sm text-gray-700 ">{{ $freelancer->fonction }}</span>
     </div>
 </div>
+@endforeach
+</div>
+
+
+<div class="flex flex-wrap justify-center gap-3">
+    @foreach ($freelancers as $freelancer)
+        <div class="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
+            <img class="object-cover w-full h-56" src="{{ asset('images/' . $freelancer->logo) }}" alt="{{ $freelancer->user->name }}">
+            <div class="py-5 text-center">
+                <a href="#" class="block text-xl font-bold text-gray-800" tabindex="0" role="link">{{ $freelancer->user->name }}</a>
+                <span class="text-sm text-gray-700">{{ $freelancer->fonction }}</span>
+            </div>
+            <!-- Popup Content -->
+            <div class="popup hidden fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
+                <div class="max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
+                    <!-- Dynamically populated content goes here -->
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cards = document.querySelectorAll('.max-w-xs');
+        cards.forEach(card => {
+            const popup = card.querySelector('.popup');
+            card.addEventListener('click', function () {
+                const freelancerName = card.querySelector('.font-bold').innerText;
+                const freelancerFunction = card.querySelector('.text-gray-700').innerText;
+                const freelancerImage = card.querySelector('img').src;
+                const popupContent = `
+                    <div class="py-5 text-center">
+                        <img class="object-cover w-full h-56" src="${freelancerImage}" alt="${freelancerName}">
+                        <a href="#" class="block text-xl font-bold text-gray-800" tabindex="0" role="link">${freelancerName}</a>
+                        <span class="text-sm text-gray-700">${freelancerFunction}</span>
+                    </div>
+                `;
+                popup.innerHTML = popupContent;
+                popup.classList.toggle('hidden');
+            });
+        });
+    });
+</script>
+
     
 
 
-
-</div>

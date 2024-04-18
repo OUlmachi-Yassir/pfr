@@ -132,7 +132,7 @@ Route::get('/profile/resume', [ProfileController::class, 'showResume'])->name('p
 
 
 Route::view('/dashboard-utilisateur', 'dashUtilisateur')->name('dashboard.utilisateur');
-Route::view('/dashboard-entreprise', 'dashEntreprise')->name('dashboard.entreprise');
+Route::get('/dashboard-entreprise', [FreelancerController::class, 'free'])->name('dashboard.entreprise');
 Route::post('/jobe/new', [jobeController::class, 'store'])->name('jobe.store');
 Route::get('/myPost', [jobeController::class, 'index'])->name('myPost');
 Route::get('/dashboard', [jobeController::class, 'anotherPgae'])->name('dashboard');

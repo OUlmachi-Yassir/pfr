@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Freelancer;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class FreelancerController extends Controller
@@ -15,13 +16,14 @@ class FreelancerController extends Controller
     }
     public function showfreelancer()
     {
-        dd(Auth::user());
         $user = Auth::user();
         $freelancer = $user->freelancer;
         return view('edit', ['freelancer' => $freelancer]);
     }
-    public function free(){
-        $freelancers = Freelancer::all();
+    public function free()
+    {
+        $user=User::get();
+        $freelancers = Freelancer::get();
         return view('dashEntreprise', compact('freelancers'));
     }
 
@@ -37,8 +39,8 @@ class FreelancerController extends Controller
             'logo' => 'nullable|image',
             'experience' => 'nullable|integer',
             'discreption' => 'nullable|string',
-            'lieux'=>'nullable|string',
-            'fonction'=>'nullable|string',
+            'lieux' => 'nullable|string',
+            'fonction' => 'nullable|string',
         ]);
 
         $imageName = null;

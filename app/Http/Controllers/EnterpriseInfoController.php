@@ -42,8 +42,6 @@ class EnterpriseInfoController extends Controller
 
         return redirect()->route('dashboard');
     }
-
-
     
 }
 

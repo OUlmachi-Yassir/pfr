@@ -33,7 +33,7 @@
                 <div id="dropdownNavbar" class="hidden bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
                     <ul class="py-1" aria-labelledby="dropdownLargeButton">
                     <li>
-                        <a href="{{route('dashboard')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
+                        <a href="{{route('dashboard.entreprise')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
                     </li>
                     <li>
                         <a href="{{route('profile.edit')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Profile</a>
@@ -210,32 +210,85 @@
       @endforeach
 </div>
 
+<div class="flex ml-2">
+    <!-- Bouton pour afficher le formulaire -->
+    <button id="openFormBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Ajouter Projet</button>
 
-<form action="{{ route('projects.store') }}" method="POST">
-    @csrf
-    <input type="hidden" name="enterprise_id" value="{{ $enterprise_id }}">
-    
-    <div>
-        <label for="name">Nom du projet:</label>
-        <input type="text" name="name" id="name" required>
+    <!-- Formulaire (initialement caché) -->
+    <div id="projectForm" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
+        <form action="{{ route('projects.store') }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8">
+            @csrf
+            
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom du projet:</label>
+                <input type="text" name="name" id="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            
+            <div class="mb-4">
+                <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+                <textarea name="description" id="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            </div>
+            
+            <div class="mb-4">
+                <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Type:</label>
+                <select name="type" id="type" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="IT development">IT development</option>
+                    <option value="Design">Design</option>
+                    <option value="Art">Art</option>
+                </select>
+            </div>
+            
+            <div class="flex justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Créer Projet</button>
+                <!-- Bouton pour masquer le formulaire -->
+                <button id="closeFormBtn" type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Annuler</button>
+            </div>
+        </form>
     </div>
-    
-    <div>
-        <label for="description">Description:</label>
-        <textarea name="description" id="description"></textarea>
+</div>
+
+<script>
+    const openFormBtn = document.getElementById('openFormBtn');
+    const projectForm = document.getElementById('projectForm');
+    const closeFormBtn = document.getElementById('closeFormBtn');
+
+    openFormBtn.addEventListener('click', () => {
+        projectForm.classList.remove('hidden');
+    });
+
+    closeFormBtn.addEventListener('click', () => {
+        projectForm.classList.add('hidden');
+    });
+</script>
+
+
+
+<br><br>
+<div class="container mx-auto">
+    <div class="grid grid-cols-3 gap-4">
+        @foreach ($projet as $project)
+        <div class="p-4 bg-white shadow-md rounded-md">
+            <h5 class="text-lg font-semibold">{{ $project->name }}</h5>
+            <p class="text-gray-700">{{ $project->description }}</p>
+            <p class="text-gray-700">Type: {{ $project->type }}</p>
+            
+            <div class="mt-4 flex justify-between">
+                <!-- Bouton d'édition -->
+                <a href="{{ route('projects.edit', $project->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Éditer</a>
+                
+                <!-- Bouton de suppression -->
+                <form action="{{ route('projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Supprimer</button>
+                </form>
+            </div>
+        </div>
+        @endforeach
     </div>
-    
-    <div>
-        <label for="type">Type:</label>
-        <select name="type" id="type" required>
-            <option value="IT development">IT development</option>
-            <option value="Design">Design</option>
-            <option value="Art">Art</option>
-        </select>
-    </div>
-    
-    <button type="submit">Créer Projet</button>
-</form>
+</div>
+
+<br><br>
 
 
 

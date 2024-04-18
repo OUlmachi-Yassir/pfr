@@ -20,6 +20,10 @@ class FreelancerController extends Controller
         $freelancer = $user->freelancer;
         return view('edit', ['freelancer' => $freelancer]);
     }
+    public function free(){
+        $freelancers = Freelancer::all();
+        return view('dashEntreprise', compact('freelancers'));
+    }
 
 
     public function freeInfo()

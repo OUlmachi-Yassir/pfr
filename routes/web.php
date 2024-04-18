@@ -71,12 +71,16 @@ Route::get('/freeInfo', [FreelancerController::class, 'freeInfo'])->name('freela
 Route::post('/freelancers', [FreelancerController::class, 'store'])->name('freelancers.store');
 Route::get('/freelancers', [FreelancerController::class, 'index'])->name('freelancers.index');
 Route::get('/profile', [FreelancerController::class, 'showfreelancer'])->name('freelancer.show');
+Route::get('/dashboard-entreprise', [FreelancerController::class, 'free'])->name('freelancers.free');
 
 
 use App\Http\Controllers\ProjectController;
 
 Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
 Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
+Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
+Route::get('/projects/{id}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+Route::delete('/projects/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 
 
 // User routes

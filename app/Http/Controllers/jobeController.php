@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jobe;
 use App\Models\Enterprise;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,19 +18,26 @@ class jobeController extends Controller
 
     $jobes = Jobe::where('enterprise_id', $enterpriseId)->get();
 
-    return view('myPost', compact('jobes'));
+    $projet = Project::where('enterprise_id', $enterpriseId)->get(); 
+    
+    $enterprises = Enterprise::all();
+    return view('myPost', compact('jobes','projet','entreprises'));
 }
 
             
     public function anotherPgae()
     {
         $jobes = Jobe::all();
+        
         return view('dashboard', compact('jobes'));
     }
     public function create()
     {
+        $enterpriseId = Auth::user()->enterprise->id;
+
         $enterprises = Enterprise::all();
-        return view('myPost', compact('enterprises'));
+        $projet = Project::where('enterprise_id', $enterpriseId)->get(); 
+        return view('myPost', compact('enterprises','projet'));
     }
 
     public function store(Request $request)

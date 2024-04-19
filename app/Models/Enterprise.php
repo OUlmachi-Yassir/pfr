@@ -26,4 +26,8 @@ class Enterprise extends Model
     {
         return $this->hasMany(jobe::class);
     }
+    public function projet()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

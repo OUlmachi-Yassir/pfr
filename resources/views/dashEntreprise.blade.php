@@ -7,6 +7,121 @@
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
     </head>
+    <style>
+        .card {
+  position: relative;
+  width: 400px;
+  height: 500px;
+  margin: 30px auto;
+  box-shadow: 0 0 100px rgba(0,0,0, .3);
+  border-radius: 10px;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(29,139,253,1) 21%, rgba(255,255,255,1) 82%);
+}
+
+.card-header {
+  position: relative;
+  height: 220px;
+  background-size: cover;
+  background-position: top;
+}
+
+.card-header:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgb(5,85,134), rgba(181,181,181, -0.20));
+  border-radius: 10px;
+}
+
+.image {
+  position: absolute;
+  margin-top: 100px;
+  left: 50%;
+  z-index: 99;
+  transform: translate(-50%, -50%);
+  color: #222;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.card-header-bar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 101;
+  width: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0,0,0,0);
+  border: none;
+  overflow: hidden;
+}
+
+.btn-message {
+  display: inline-block;
+  width: 19.37px;
+  height: 16.99px;
+  z-index: 100;
+  margin-right: 10px;
+  margin-top: 10px;
+  float: right;
+}
+
+.btn-menu {
+  display: inline-block;
+  background: ;
+  z-index: 100;
+  width: 19px;
+  height: 12.16px;
+  margin-left: 10px;
+  margin-top: 10px;
+  float: left;
+}
+
+.card-header-slanted-edge {
+  position: absolute;
+  bottom: -3px;
+  z-index: 1;
+  width: 100%;
+  right: 0;
+  left: 0;
+}
+
+.card-body {
+  text-align: center;
+  padding-left: 10px;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+
+.job-title {
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 15px;
+  color: #919191;
+}
+
+.bio {
+  font-size: 14px;
+  color: #7B7B7B;
+  font-weight: 300;
+  margin: 10px auto;
+  line-height: 20px;
+}
+
+
+    </style>
     <body>
         
     </body>
@@ -82,6 +197,7 @@
 </div>
 
 
+
 <div class="flex flex-wrap justify-center gap-3">
     @foreach ($freelancers as $freelancer)
         <div class="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
@@ -90,38 +206,67 @@
                 <a href="#" class="block text-xl font-bold text-gray-800" tabindex="0" role="link">{{ $freelancer->user->name }}</a>
                 <span class="text-sm text-gray-700">{{ $freelancer->fonction }}</span>
             </div>
-            <!-- Popup Content -->
-            <div class="popup hidden fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
-                <div class="max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
-                    <!-- Dynamically populated content goes here -->
-                </div>
-            </div>
+            <!-- Add a data attribute to store freelancer data -->
+            <div class="freelancer-details hidden" data-freelancer="{{ json_encode($freelancer) }}"></div>
         </div>
     @endforeach
 </div>
 
+<!-- Popup card template -->
+<div class="popup-card hidden fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header-bar">
+                <a class="btn-message" href="#"><svg viewBox="0 0 16 16" class="bi bi-chat-dots-fill" fill="white" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+                    </svg><span class="sr-only">Message</span></a>
+                <a class="btn-menu" href="#"><svg viewBox="0 0 16 16" class="bi bi-list" fill="white" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" fill-rule="evenodd"></path>
+                    </svg><span class="sr-only">Menu</span></a>
+            </div>
+            <span class="image bg-white rounded-full w-[110px] h-[110px]  "><img class="rounded-full h-[100px] w-[100px] mt-1 m-auto" src="" alt=""></span>
+            <div class="card-header-slanted-edge"></div>
+        </div>
+        <div class="card-body">
+            <span class="name"></span><br>
+            <span class="job-title"></span>
+            <div class="bio"></div>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const cards = document.querySelectorAll('.max-w-xs');
-        cards.forEach(card => {
-            const popup = card.querySelector('.popup');
+        const freelancerCards = document.querySelectorAll('.w-full.max-w-xs.overflow-hidden.bg-white.rounded-lg.shadow-lg');
+        const popupCard = document.querySelector('.popup-card');
+
+        freelancerCards.forEach(card => {
             card.addEventListener('click', function () {
-                const freelancerName = card.querySelector('.font-bold').innerText;
-                const freelancerFunction = card.querySelector('.text-gray-700').innerText;
-                const freelancerImage = card.querySelector('img').src;
-                const popupContent = `
-                    <div class="py-5 text-center">
-                        <img class="object-cover w-full h-56" src="${freelancerImage}" alt="${freelancerName}">
-                        <a href="#" class="block text-xl font-bold text-gray-800" tabindex="0" role="link">${freelancerName}</a>
-                        <span class="text-sm text-gray-700">${freelancerFunction}</span>
-                    </div>
-                `;
-                popup.innerHTML = popupContent;
-                popup.classList.toggle('hidden');
+                const freelancerData = JSON.parse(this.querySelector('.freelancer-details').dataset.freelancer);
+                // Populate popup card with freelancer data
+                popupCard.querySelector('.image img').src = "{{ asset('images/') }}" + '/' + freelancerData.logo;
+                popupCard.querySelector('.name').textContent = freelancerData.user.name;
+                popupCard.querySelector('.job-title').textContent = freelancerData.fonction;
+                popupCard.classList.remove('hidden');
             });
+        });
+
+        // Close popup card when clicking outside
+        popupCard.addEventListener('click', function (e) {
+            if (e.target.classList.contains('popup-card')) {
+                this.classList.add('hidden');
+            }
         });
     });
 </script>
+
+
+
+
+
+
+
+
 
     
 

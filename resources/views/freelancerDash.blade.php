@@ -99,7 +99,18 @@
 
     <br><br>
     
-
+<div class="flex flex-wrap gap-3 justify-center">
+    @foreach($projet as $projects)
+    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+        <img class="w-full" src="{{ asset('images/' . $projects->enterprise->logo) }}" alt="Enterprise Logo">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">{{$projects->enterprise->slogan}}</div>
+            <p class="text-gray-700 text-base">{{$projects->name}}</p>
+            <p class="text-gray-700 text-base">{{$projects->description}}</p>
+        </div>
+    </div>
+    @endforeach
+</div>
 
 
 </script>

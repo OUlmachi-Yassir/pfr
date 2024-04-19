@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Freelancer;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,8 @@ class FreelancerController extends Controller
     public function index()
     {
         $freelancers = Freelancer::all();
-        return view('freelancerDash', ['freelancers' => $freelancers]);
+        $projet= Project::all();
+        return view('freelancerDash', ['freelancers' => $freelancers, 'projet'=>$projet]);
     }
     public function showfreelancer()
     {

@@ -265,13 +265,48 @@
 
 <br><br>
 <div class="container mx-auto">
-    <div class="grid grid-cols-3 gap-4">
-        @foreach ($projet as $project)
-        <div class="p-4 bg-white shadow-md rounded-md">
+    @foreach ($projet as $project)
+        <div class="p-4 bg-white shadow-md rounded-md mb-4">
             <h5 class="text-lg font-semibold">{{ $project->name }}</h5>
             <p class="text-gray-700">{{ $project->description }}</p>
             <p class="text-gray-700">Type: {{ $project->type }}</p>
-            
+
+            <!-- Table for displaying freelancer applications -->
+            <div class="mt-4">
+                <h6 class="text-lg font-semibold mb-2">Freelancers Applied</h6>
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Freelancer</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Applied</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($project->freelancerProjects ?? [] as $freelancerProject)
+                            <tr>
+                <td class="px-6 py-4 whitespace-nowrap flex items-center gap-1 freelancer-details" 
+                    data-image-url="{{ asset('images/' . $freelancerProject->freelancer->logo) }}" 
+                    data-name="{{ $freelancerProject->freelancer->user->name }}">
+                    <img class="w-11 h-11 rounded-full" src="{{ asset('images/' . $freelancerProject->freelancer->logo) }}" alt="">
+                    <span>{{ $freelancerProject->freelancer->user->name }}</span>
+                    <!-- Hidden div with additional information -->
+                    <div class="hidden freelancer-info"
+                        data-slogan="{{ $freelancerProject->freelancer->slogan }}"
+                        data-industrie="{{ $freelancerProject->freelancer->industrie }}"
+                        data-description="{{ $freelancerProject->freelancer->discreption }}"
+                        data-location="{{ $freelancerProject->freelancer->lieux }}"
+                        data-func="{{ $freelancerProject->freelancer->fonction }}">
+                        <!-- Additional information here -->
+                    </div>
+                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $freelancerProject->created_at->format('Y-m-d H:i:s') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
             <div class="mt-4 flex justify-between">
                 <!-- Bouton d'édition -->
                 <a href="{{ route('projects.edit', $project->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Éditer</a>
@@ -284,9 +319,89 @@
                 </form>
             </div>
         </div>
-        @endforeach
+    @endforeach
+
+    {{ $projet->links() }} 
+</div>
+
+
+
+<!-- Modal -->
+<div id="freelancerModal" class="hidden fixed inset-0 z-50 overflow-auto bg-gray-800 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white rounded-lg p-8 max-w-md">
+        <div class="flex items-center justify-between">
+            <img id="freelancerImage" class="w-20 h-20 rounded-full" src="" alt="">
+            <div>
+                <h2 id="freelancerName" class="text-xl font-semibold mb-2"></h2>
+                <p id="freelancerSlogan" class="text-gray-600 mb-1"></p>
+                <p id="freelancerIndustrie" class="text-gray-600 mb-1"></p>
+                <p id="freelancerDescription" class="text-gray-600 mb-1"></p>
+                <p id="freelancerLocation" class="text-gray-600 mb-1"></p>
+                <p id="freelancerFunction" class="text-gray-600 mb-1"></p>
+            </div>
+            <button id="closeModal" class="text-gray-500 hover:text-gray-700 focus:outline-none">&times;</button>
+        </div>
     </div>
 </div>
+
+<!-- JavaScript to handle modal -->
+<script>
+    // Get modal elements
+    const modal = document.getElementById('freelancerModal');
+    const freelancerImage = document.getElementById('freelancerImage');
+    const freelancerName = document.getElementById('freelancerName');
+    const freelancerSlogan = document.getElementById('freelancerSlogan');
+    const freelancerDescription = document.getElementById('freelancerDescription');
+    const freelancerLocation = document.getElementById('freelancerLocation');
+    const freelancerFunction = document.getElementById('freelancerFunction');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    // Function to open modal
+    function openModal(imageUrl, name, slogan, industrie, description, location, func) {
+        freelancerImage.src = imageUrl;
+        freelancerName.textContent = name;
+        freelancerSlogan.textContent = `Slogan: ${slogan}`;
+        freelancerDescription.textContent = `Description: ${description}`;
+        freelancerLocation.textContent = `Location: ${location}`;
+        freelancerFunction.textContent = `Function: ${func}`;
+        modal.classList.remove('hidden');
+    }
+
+    // Function to close modal
+    function closeModal() {
+        modal.classList.add('hidden');
+    }
+
+// Add click event listener to table cells with the class 'freelancer-details'
+document.querySelectorAll('.freelancer-details').forEach((element) => {
+    element.addEventListener('click', (event) => {
+        const imageUrl = event.currentTarget.dataset.imageUrl;
+        const name = event.currentTarget.dataset.name;
+        const infoDiv = event.currentTarget.querySelector('.freelancer-info');
+        const slogan = infoDiv.dataset.slogan;
+        const description = infoDiv.dataset.description;
+        const location = infoDiv.dataset.location;
+        const func = infoDiv.dataset.func;
+        openModal(imageUrl, name, slogan, description, location, func);
+    });
+});
+
+
+
+    // Add click event listener to close modal button
+    closeModalBtn.addEventListener('click', () => {
+        closeModal();
+    });
+
+    // Close modal when clicking outside of it
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+</script>
+
+
 
 <br><br>
 

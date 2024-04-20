@@ -75,7 +75,8 @@ Route::get('/dashboard-entreprise', [FreelancerController::class, 'free'])->name
 
 
 use App\Http\Controllers\ProjectController;
-
+// web.php
+Route::post('/projects/{projectId}/apply', [ProjectController::class, 'apply'])->name('projects.apply');
 Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
 Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
 Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('projects.update');

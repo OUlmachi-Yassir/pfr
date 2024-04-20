@@ -24,5 +24,9 @@ class freelancer extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
     
 }

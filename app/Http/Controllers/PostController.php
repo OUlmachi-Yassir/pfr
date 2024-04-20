@@ -16,21 +16,39 @@ class PostController extends Controller
     public function alo()
 {
     if (auth()->user()->enterprise) {
-        // Retrieve posts related to the authenticated user's jobe IDs
         $enterpriseId = Auth::user()->enterprise->id;
 
-        $userJobeIds = auth()->user()->enterprise->jobe->pluck('id');
-        $posts = Post::whereIn('jobe_id', $userJobeIds)->get();
-        $jobes = jobe::all();
-        $projet = Project::where('enterprise_id', $enterpriseId)->get(); 
+        // Fetch all projects related to the enterprise and eager load freelancerProjects, paginated
+        $projet = Project::with('freelancerProjects')->where('enterprise_id', $enterpriseId)->paginate(2);
 
-        
+        // Fetch jobe IDs related to the enterprise
+        $userJobeIds = auth()->user()->enterprise->jobe->pluck('id');
+
+        // Fetch posts related to the jobe IDs
+        $posts = Post::whereIn('jobe_id', $userJobeIds)->get();
+
+        // Initialize a collection for freelancerProjects
+        $freelancerProjects = collect();
+
+        // Loop through each project to collect freelancerProjects
+        foreach ($projet as $project) {
+            $freelancerProjects = $freelancerProjects->merge($project->freelancerProjects);
+        }
+
+        $jobes = Jobe::all();
     } else {
-        // If the user is not associated with an enterprise, set $posts to an empty collection
         $posts = collect();
+        $projet = collect();
+        $freelancerProjects = collect();
+        $jobes = Jobe::all();
     }
-    return view('myPost', compact('posts','jobes','projet'));
+
+    return view('myPost', compact('posts', 'jobes', 'projet', 'freelancerProjects'));
 }
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */

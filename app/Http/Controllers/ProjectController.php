@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enterprise;
+use App\Models\freelancer;
+use App\Models\FreelancerProject;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,4 +79,37 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('success', 'Projet supprimé avec succès!');
     }
+
+
+    public function apply(Request $request, $projectId)
+{
+    try {
+        if (!auth()->check()) {
+            throw new \Exception('User not authenticated.');
+        }
+
+        $freelancer = auth()->user()->freelancer;
+    
+        if (!$freelancer) {
+            throw new \Exception('Freelancer not found.');
+        }
+
+        $project = Project::findOrFail($projectId);
+        
+
+        if (!$project) {
+            throw new \Exception('Project not found.');
+        }
+
+        $freelancerProject = new FreelancerProject();
+        $freelancerProject->freelancer_id = $freelancer->id;
+        $freelancerProject->project_id = $projectId;
+        $freelancerProject->save();
+
+        return redirect()->back()->with('success', 'You have successfully applied to this project.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', $e->getMessage());
+    }
+}
+
 }

@@ -95,7 +95,19 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-   
+        @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
 
     <br><br>
     
@@ -107,9 +119,19 @@
             <div class="font-bold text-xl mb-2">{{$projects->enterprise->slogan}}</div>
             <p class="text-gray-700 text-base">{{$projects->name}}</p>
             <p class="text-gray-700 text-base">{{$projects->description}}</p>
+            <!-- Inside your view file -->
+            @if ($projects->freelancers->contains(auth()->user()->freelancer))
+                    <p>You have already applied to this project</p>
+                    @else
+<form action="{{ route('projects.apply', ['projectId' => $projects->id]) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-primary">Apply to Project</button>
+</form>
+@endif
         </div>
     </div>
     @endforeach
+
 </div>
 
 

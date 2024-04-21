@@ -17,11 +17,38 @@
           .workwise{
             font-family: 'Zen Dots';font-size: 22px;
           }
+          .ww{
+            font-family: 'Zen Dots';
+            font-size: xx-large;
+          }
 
           .oooo{
             background: rgb(236,236,236);
             background: radial-gradient(circle, rgba(236,236,236,1) 0%, rgba(178,210,248,1) 100%);
           }
+
+          
+    @keyframes vibrate {
+        0% { transform: translate(0, 0); }
+        60% { transform: translate(-4px, -3px); }
+        100% { transform: translate(0, 0); }
+    }
+
+    .vibrating-image {
+        animation: vibrate 1s linear infinite;
+    }
+
+    .www {
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 23%, rgba(8,27,133,1) 43%, rgba(7,62,156,1) 62%, rgba(0,212,255,1) 100%);
+        color: transparent; 
+        -webkit-background-clip: text; 
+        background-clip: text;
+        font-size: 48px; 
+        font-family: 'Zen Dots';
+        font-weight: bold;
+    }
+
         </style>
         
     </head>
@@ -74,10 +101,26 @@
         
     </div>
     </nav>
+<br><br>
 
 
-    <div>
-
+    <div class="flex items-center justify-center">
+      <div >
+        <h1 class="www">Work-Wise</h1>
+      <p class=" text-lg ">Welcome to <span class="text-xl ww">W-W</span>, the ultimate platform</p>
+      <p class="text">that seamlessly combines the professional networking <br>
+         with the dynamic freelancing ecosystem</p>
+         <p class="">Whether you're a skilled professional seeking new opportunities</p>
+         <a  href="{{ route('register') }}">
+            <button class="cursor-pointer uppercase bg-white px-4 py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition">
+              Discover More!
+            </button>
+          </a>
+      </div>
+      <div>
+      <img class="vibrating-image" src="{{ asset('images/Design_sans_titre-removebg-preview.png') }}" alt="#">
+      </div>
+      
     </div>
 
 

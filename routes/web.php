@@ -16,6 +16,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\FreelancerController;
+use App\Models\Feedback;
 use App\Services\Newsletter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -38,7 +41,7 @@ Route::get('/register', function () {
 //     return view('login');
 // })->name('login');
 Route::get('/login', function () {
-    return view('auth.login'); // Adjusted to look for the login view inside the auth folder
+    return view('auth.login'); 
 })->name('login');
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store'])->name('register');
@@ -52,7 +55,8 @@ Route::post('/enterprise-info', [EnterpriseInfoController::class, 'store'])->nam
 Route::get('/enterprise-info', [EnterpriseInfoController::class, 'entrepriseinfo'])->name('enterprise.info');
 
 Route::get('/', function () {
-    return view('welcome');
+    $feedbacks = Feedback::all(); 
+    return view('welcome', ['feedbacks' => $feedbacks]); 
 });
 
 Route::get('/dashboard', function () {
@@ -63,9 +67,7 @@ Route::get('/myPost', function () {
 })->middleware(['auth', 'verified'])->name('myPost');
 
 
-// routes/web.php
 
-use App\Http\Controllers\FreelancerController;
 
 Route::get('/freeInfo', [FreelancerController::class, 'freeInfo'])->name('freelancer.info');
 Route::post('/freelancers', [FreelancerController::class, 'store'])->name('freelancers.store');
@@ -74,8 +76,6 @@ Route::get('/profile', [FreelancerController::class, 'showfreelancer'])->name('f
 Route::get('/dashboard-entreprise', [FreelancerController::class, 'free'])->name('freelancers.free');
 
 
-use App\Http\Controllers\ProjectController;
-// web.php
 Route::post('/projects/{projectId}/apply', [ProjectController::class, 'apply'])->name('projects.apply');
 Route::get('projects/create', [ProjectController::class, 'create'])->name('projects.create');
 Route::post('projects', [ProjectController::class, 'store'])->name('projects.store');
@@ -124,7 +124,6 @@ Route::get('/cvs/create', [CVController::class, 'create'])->name('cvs.create');
 Route::post('/cvs', [CVController::class, 'store'])->name('cvs.store');
 
 
-// web.php
 Route::get('/info', [ProfileController::class, 'infoForm'])->name('info.form');
 Route::post('/info/save', [ProfileController::class, 'saveProfile'])->name('profile.save');
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile.show');

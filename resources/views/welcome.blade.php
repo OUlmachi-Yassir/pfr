@@ -11,8 +11,10 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
         <link href='https://fonts.googleapis.com/css?family=Zen Dots' rel='stylesheet'>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <!-- Styles -->
+        
+
         <style>
           .workwise{
             font-family: 'Zen Dots';font-size: 22px;
@@ -48,6 +50,12 @@
         font-family: 'Zen Dots';
         font-weight: bold;
     }
+
+    .flex.flex-col {
+  opacity: 0; 
+  transform: translateX(-50px); 
+  transition: opacity 0.8s ease, transform 0.8s ease; 
+}
 
         </style>
         
@@ -102,33 +110,173 @@
     </div>
     </nav>
 <br><br>
+    <div class="flex flex-wrap items-center justify-center">
+      <div class="flex flex-col items-center">
+        <h1 class="workwise flex items-center mb-1 text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-orange-500"><span><img src="{{ asset('images/olm.png') }}" class="block ml-4 h-14 my-1 bg-cover bg-center" alt="Logo"></span>Work-Wise</h1>
+        <p class="text-4xl font-bold ">Welcome to <span class="text-4xl ww text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-orange-500">W-W</span>, the ultimate platform</p>
+        <p class="text">that seamlessly combines the professional networking with the dynamic freelancing ecosystem</p>
+        <p class="">Whether you're a skilled professional seeking new opportunities</p>
+        
+        <div class="flex h-12 justify-center gap-x-6 dark:text-white">
+    <a class="group flex h-min items-center disabled:opacity-50 disabled:hover:opacity-50 hover:opacity-95 justify-center ring-none rounded-lg shadow-lg font-semibold py-2 px-4 font-dm focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-violet-500 border-b-violet-700 disabled:border-0 disabled:bg-violet-500 disabled:text-white ring-white text-white border-b-4 hover:border-0 active:border-0 hover:text-gray-100 active:bg-violet-800 active:text-gray-300 focus-visible:outline-violet-500 text-sm sm:text-base dark:bg-gray-700 dark:border-gray-700 dark:border-b-gray-900"
+        href="{{ route('register') }}">
+        Create demos for free
+    </a>
+    <a class="group flex h-min ring-none items-center justify-center hover:opacity-95 disabled:opacity-50 rounded-lg py-2 px-4 font-dm focus:outline-none !ring-transparent text-violet-800 border border-violet-500 border-b-violet-400 border-b-4 hover:border active:border bg-white hover:text-violet-900 hover:bg-gray-50 active:bg-gray-100 active:text-violet-600 focus-visible:outline-violet-600 focus-visible:ring-violet-700 text-sm sm:text-base dark:bg-gray-700 dark:border-gray-700 dark:border-b-gray-900 dark:text-white"
+        href="">
+        <svg aria-hidden="true" class="h-3 w-3 flex-none fill-violet-600 group-active:fill-current">
+            <path
+                d="m9.997 6.91-7.583 3.447A1 1 0 0 1 1 9.447V2.553a1 1 0 0 1 1.414-.91L9.997 5.09c.782.355.782 1.465 0 1.82Z">
+            </path>
+        </svg>
+        <span class="ml-3">For More feedBack</span>
+    </a>
+</div>
 
 
-    <div class="flex items-center justify-center">
-      <div >
-        <h1 class="www">Work-Wise</h1>
-      <p class=" text-lg ">Welcome to <span class="text-xl ww">W-W</span>, the ultimate platform</p>
-      <p class="text">that seamlessly combines the professional networking <br>
-         with the dynamic freelancing ecosystem</p>
-         <p class="">Whether you're a skilled professional seeking new opportunities</p>
-         <a  href="{{ route('register') }}">
-            <button class="cursor-pointer uppercase bg-white px-4 py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition">
-              Discover More!
-            </button>
-          </a>
       </div>
+    <br><br>
       <div>
       <img class="vibrating-image" src="{{ asset('images/Design_sans_titre-removebg-preview.png') }}" alt="#">
-      </div>
-      
     </div>
+  </div>
+<br><br>
+<div class="inline-flex items-center justify-center w-full">
+    <hr class="w-[600px] h-1 my-8  border-0 rounded bg-gradient-to-r from-blue-500 to-orange-500">
+</div>
+<br><br>
+<div class="flex flex-wrap justify-center items-center">
+  <img class="vibrating-image" src="{{ asset('images/Na_.png') }}" alt="img">
+  <div class="flex flex-col justify-center ml-3 ">
+    <h1 class="text-4xl font-bold mb-8">About Us</h1>
+    <p class="text-xl font-bold text-gray-700 mb-6">WORK-WISE is on a mission to foster meaningful connections:</p>
+    <p class="text-lg text-gray-700 mb-6 flex items-center"><span><svg
+    class="w-5 h-5"
+    stroke="currentColor"
+    stroke-width="1.5"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    ></path>
+  </svg>
+</span> For Job Seekers: Streamline your job search by creating a comprehensive profile,<br> exploring diverse opportunities, applying with ease, and expanding your professional network.</p>
+    <p class="text-lg text-gray-700 mb-6 flex items-center"><span><svg
+    class="w-5 h-5"
+    stroke="currentColor"
+    stroke-width="1.5"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    ></path>
+  </svg>
+</span>For Businesses: Simplify the recruitment process by posting targeted job listings,<br> finding qualified candidates, and establishing lasting relationships with talented professionals.</p>
+    <p class="text-lg text-gray-700 mb-6 flex items-center"><span><svg
+    class="w-5 h-5"
+    stroke="currentColor"
+    stroke-width="1.5"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    ></path>
+  </svg>
+</span>For Freelancers: Enhance your visibility by showcasing your skills, finding stimulating projects,<br> applying with a single click, and advancing your independent career.</p>
+  </div>
+</div>
+
+<br><br>
+<div class="inline-flex items-center justify-center w-full">
+    <hr class="w-[600px] h-1 my-8  border-0 rounded bg-gradient-to-r from-blue-500 to-orange-500">
+</div>
+<br><br>
 
 
+<h1>Feedbacks</h1>
 
-    <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+<div class="flex flex-wrap items-center justify-center gap-3">
+@foreach($feedbacks as $feedback)
+    @if($feedback->user->role == 'utilisateur')
+        @if($feedback->user && $feedback->user->profile)
+            @php
+                $profilePicture = $feedback->user->profile->profile_picture;
+            @endphp
+            <div class="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                <div class="flex justify-center -mt-16 md:justify-end">
+                    <img class="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" alt="Testimonial avatar" src="{{ asset('images/' . $profilePicture) }}">
+                </div>
 
-        <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+                <h2 class="mt-2 text-xl font-semibold text-gray-800 dark:text-white md:mt-0">{{$feedback->user->role}}</h2>
+
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-200">{{ $feedback->message }}</p>
+
+                <div class="flex justify-end mt-4">
+                    <a href="#" class="text-lg font-medium text-blue-600 dark:text-blue-300" tabindex="0" role="link">{{ $feedback->user->name }}</a>
+                </div>
+            </div>
+
+        @endif
+    @elseif($feedback->user->role == 'freelancer')
+        @if($feedback->user && $feedback->user->freelancer)
+            @php
+                $profilePicture = $feedback->user->freelancer->logo;
+            @endphp
+
+            <div class="w-full max-w-md px-8 py-4 mt-16 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+                <div class="flex justify-center -mt-16 md:justify-end">
+                    <img class="object-cover w-20 h-20 border-2 border-blue-500 rounded-full dark:border-blue-400" alt="Testimonial avatar" src="{{ asset('images/' . $profilePicture) }}">
+                </div>
+
+                <h2 class="mt-2 text-xl font-semibold text-gray-800 dark:text-white md:mt-0">{{$feedback->user->role}}</h2>
+
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-200">{{ $feedback->message }}</p>
+
+                <div class="flex justify-end mt-4">
+                    <a href="#" class="text-lg font-medium text-blue-600 dark:text-blue-300" tabindex="0" role="link">{{ $feedback->user->name }}</a>
+                </div>
+            </div>
+        @endif
+    @endif
+@endforeach
+
+</div>
+
+
 
         
+   
+                                            
+  
+
+  
+  <script>
+    $(document).ready(function() {
+  // Animate the elements when the page loads
+  $('.flex.flex-col').css({'opacity': '1', 'transform': 'translateX(0)'}); // Change initial properties
+  $('.vibrating-image').css({'opacity': '0', 'transform': 'translateX(-50px)'}); // Move image to the left
+  
+  $('.vibrating-image').animate({
+    opacity: 1,
+    translateX: 0 
+  }, 1000);
+});
+
+  </script>
+
+    <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     </body>
 </html>

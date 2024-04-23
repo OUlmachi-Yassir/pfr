@@ -55,8 +55,8 @@ Route::post('/enterprise-info', [EnterpriseInfoController::class, 'store'])->nam
 Route::get('/enterprise-info', [EnterpriseInfoController::class, 'entrepriseinfo'])->name('enterprise.info');
 
 Route::get('/', function () {
-    $feedbacks = Feedback::all(); 
-    return view('welcome', ['feedbacks' => $feedbacks]); 
+    $feedbacks = Feedback::paginate(3); 
+    return view('welcome', ['feedbacks' => $feedbacks]);
 });
 
 Route::get('/dashboard', function () {

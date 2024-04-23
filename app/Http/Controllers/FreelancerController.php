@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class FreelancerController extends Controller
 {
-    public function index()
-    {
-        $freelancers = Freelancer::all();
-        $projet= Project::all();
-        return view('freelancerDash', ['freelancers' => $freelancers, 'projet'=>$projet]);
-    }
+        public function index()
+        {
+            $freelancers = Freelancer::all();
+            $projet= Project::paginate(2);
+            $projetCont=Project::all()->count();
+            return view('freelancerDash', ['freelancers' => $freelancers, 'projet'=>$projet,'projetCont'=>$projetCont]);
+        }
     public function showfreelancer()
     {
         $user = Auth::user();

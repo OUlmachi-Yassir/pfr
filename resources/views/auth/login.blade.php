@@ -56,18 +56,20 @@
 			<div>
 
 				<form method="POST" action="{{ route('check') }}">
+                @csrf
 					<div>
 						<span class="text-sm text-gray-900">Welcome back</span>
 						<h1 class="text-2xl font-bold">Login to your account</h1>
 					</div>
+                    <div class="my-3">
+							<label class="block text-md mb-2" for="email">Email</label>
+							<input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="email" placeholder="email">
+                        </div>
 					<div class="mt-5">
 						<label class="block text-md mb-2" for="password">Password</label>
 						<input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" name="password" placeholder="password">
-        </div>
-						<div class="my-3">
-							<label class="block text-md mb-2" for="email">Email</label>
-							<input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="password" placeholder="email">
-        </div>
+                        </div>
+						
 							<div class="flex justify-between">
 								<div>
 									<input class="cursor-pointer"  type="radio" name="rememberme">

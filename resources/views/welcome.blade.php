@@ -66,7 +66,7 @@
     <body class="oooo">
 <nav class="mx-4 shadow-xl  rounded-full hover:border-slate-400">
     <div class=" flex flex-wrap items-center justify-between my-2 mx-4">
-        <a href="#" class="flex items-center">
+        <a href="{{url('/')}}" class="flex items-center">
         <img src="{{ asset('images/olm.png') }}" class="block ml-4 h-14 my-1 bg-cover bg-center" alt="Logo">
         <span class="workwise mb-1 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-orange-500 font-zenDots">W-W</span>
         </a>

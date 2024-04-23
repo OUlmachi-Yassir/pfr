@@ -71,7 +71,9 @@ public function ajaxSearch(Request $request)
     $results = Jobe::where('titre', 'like', "%$query%")
                    ->orWhere('competence', 'like', "%$query%")
                    ->orWhere('type', 'like', "%$query%")
-                   ->get();
+                   ->orderBy('created_at', 'desc')->get();
+
+                 
 
     return response()->json($results);
 }

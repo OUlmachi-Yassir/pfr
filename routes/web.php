@@ -48,6 +48,8 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register')
 Route::post('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/check', [LoginController::class, 'check'])->name('check');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/ban-user/{user}', [UserController::class,'banUser'])->name('ban.user');
+Route::post('/unban-user/{user}', [UserController::class,'unbanUser'])->name('unban.user');
 
 
 

@@ -30,7 +30,8 @@ class jobeController extends Controller
     {
         $jobes = Jobe::all();
         
-        return view('dashboard', compact('jobes'));
+        $users = User::all();
+        return view('dashboard', compact('jobes',$users));
     }
     public function create()
     {
@@ -134,8 +135,9 @@ public function ajaxSearch(Request $request)
         $userCount = User::where('role', 'utilisateur')->count();
         $enterpriseCount = Enterprise::count();
         $jobCount = Jobe::count();
+        $users = User::all();
         
-        return view('dashboard', compact('jobes', 'userCount', 'enterpriseCount', 'jobCount'));
+        return view('dashboard', compact('jobes', 'userCount', 'enterpriseCount', 'jobCount','users'));
     }
     
     

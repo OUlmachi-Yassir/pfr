@@ -26,7 +26,17 @@ class UserController extends Controller
         $userCount = User::where('role', 'utilisateur')->count();
         $enterpriseCount = User::where('role', 'entreprise')->count();
         $jobCount = jobe::count();
-        
-        return view('dashboard', compact('jobes','userCount', 'enterpriseCount', 'jobCount'));
+        $users = User::whereIn('role', ['entreprise', 'freelancer', 'utilisateur'])->get();
+        return view('dashboard', compact('jobes','userCount', 'enterpriseCount', 'jobCount','users'));
     }
+    public function banUser(Request $request, User $user)
+{
+    $user->update(['banned' => 1]); 
+    return response()->json(['success' => true]);
+}
+public function unbanUser(Request $request, User $user)
+{
+    $user->update(['banned' => 0]); // Set banned status to 0
+    return response()->json(['success' => true]);
+}
 }

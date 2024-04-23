@@ -57,11 +57,16 @@
                     <li>
                         <a href="{{route('freelancers.index')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Project</a>
                     </li>
-                    @endif
+                    
                     <li>
                         <a href="{{route('profile.edit')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Profile</a>
                     </li>
-                    
+                    @endif
+                    @if(auth()->user()->role === 'utilisateur')
+                    <li>
+                        <a href="{{route('profile.edit')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Profile</a>
+                    </li>
+                    @endif
                     </ul>
                     <div class="py-1">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="inline">
@@ -73,15 +78,14 @@
             </li>
             @if(auth()->user()->role === 'entreprise')
             <li>
+            <a href="{{route('profile.edit')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Profile</a>
+            </li>
+            <li>
             <a href="{{route('myPost')}}" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">My-Post</a>
             </li>
             @endif
-            <li>
-                
-            </li>
-            <li>
-            <a href="#" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">Contact</a>
-            </li>
+           
+
         </ul>
         </div>
     </div>
@@ -104,8 +108,9 @@
         <br><br>
         
         <div class="flex flex-wrap gap-2 px-3">
+          @if(auth()->user()->role === 'admin')
             <div
-                class="group w-[400px]  rounded-lg bg-gradient-to-r from-slate-100 to-gray-400 p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#2196f3] flex justify-between"
+                class="group w-[400px] h-[80px] shadow-lg rounded-lg bg-slate-100  p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#2196f3] flex justify-between"
             >
             <div><p class="bg-gradient-to-r from-zinc-900 to-indigo-600 bg-clip-text text-transparent text-2xl">Total Utilisateurs:</p>
                 <p class="bg-gradient-to-b from-stone-900 to-indigo-800 bg-clip-text text-transparent text-sm"> {{ $userCount }}</p>
@@ -113,8 +118,9 @@
                 
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD4ElEQVR4nO1ZS0hUURj+bEwENaXShbTJByi0VkQFkfABiroIVy4SClzki7ClhEQTjkZIC5EQjXytgsAHEpRmULYQHUYYTBitsFSGSU0lpz/+0z1xGR3G0XvmAX7wM5c795zv/+75zrn3/BcwHlcA3ADQCeA1gHkAXwD8AvAeQDRCEJcB3AHwEQD5CDNCCJcAPAKwIxOMiYmh8vJyamtro/HxcbJarbS2tkYzMzNkMpn4mgMA2QgB3ATglIkXFhbSyMgI7ezskDe0tLTIUfit2WoCQLM2ggHDBQAvZeIFBQU0OztLx8Hu7i7l5OQcZas9AI8BxKpOPkmblBQfH0/9/f10EvAoLS8v0/DwMFVXV1NkZKQU8kG1gE9MlJqaSna7nYyC1WrVj4ZS/GSSpaUlMhoIkAAbkywsLIStgAkmGRsbC1sBz5ikp6cnbAXcZ5LW1tawFXCLSWpra8NWQAmTFBUVha2Aa0ySmZkZtgISmCQuLi4sBZwHYJFECgVYNC7D0SFJ8vPzDReQl5enF9GuQsA6d87v9aowPT0tBfxQIUCJdQI5F0THq6urpAorKyvqBZSWlpLD4TA8eYfDQSUlJUoFbOp3UU1NTYYl39jY6LlD21AhYEhPwhv0xcXFUydvs9nkZl8fgyoEpAH4rieqqqo6tYCKigrP5NcApEIRuOPnANwRERGCsLOz88TJt7e36xN3a32nIAAY0Fupr6/P7+R7e3s9rfMCAcRVAPv6oW9oaKDt7W2fiW9tbVF9fb2nbfZV2sYb7nrWd5KSkshisdDe3t6hxPkcWyYxMfGoulATgoSnR9U/09LSaGhoSDyYeH0fGBgQ57zUSnsQRJgAPNAmoNjsp6eney3s8n+jo6P6Sdum9RFUxAPoZh/LqltHRwdlZWWJQi9Hdna2WK1k3VTzPLfhtkFDOoAnALbkHZ6fn/c5iefm5vSjsgugX9vpBQTnAFwH8ArAH5lIbGys+OUaJz/cBgcHRbnQ5XKJ4GOeB5WVlf+XzoSEBJLPEi3eaR9GTKoq0rcBLErC6OhoqqmpEVU6Xhqbm5spKirKq/9l8DV8Lbex2+1iSZU3QIvPAO4BuKjEJikpKWQ2m2lzc/OQPdbX16mrq4uKi4spOTlZiOTgYz7H/21sbBxq53K5qLu7mzIyMgyx15E2yc3NFR8wDg4OSBXcbjdNTk5SWVnZqez1Vu/turo68cYYaNhsNsHtYa83xxEgLual0Ol0UrDhdDpFLv5sdAKy9/UX8FcAVwhCBVNTU/4LCOHwiW8hkCR5ia++0//3JZ1CNB4eR0CUJuJriN15s5bbGc4AA/EXRTuKZoeiodsAAAAASUVORK5CYII=">
             </div>
+            @endif
             <div
-                class="group w-[400px] rounded-lg bg-gradient-to-r from-slate-100 to-gray-400 p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#2196f3] flex justify-between"
+                class="group w-[400px] h-[80px] shadow-lg rounded-lg bg-slate-100  p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#2196f3] flex justify-between"
             >
             <div><p class="bg-gradient-to-r from-zinc-900 to-indigo-600 bg-clip-text text-transparent text-2xl">  Total Enterprises: 
             </p>
@@ -124,7 +130,7 @@
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAqklEQVR4nO2WwQ6AIAxD+f+frhcPxigELG6UvoSDMzF5ssJKMesB0goHaiKjWOQr7NYIazWoiczCIqw/dq/3PrfqdORFWFgk645MH3nwU0ZkREaBRSbvCOu74cevjEgvcEbUMgKLJMsIC1kROCMNPGuVzYdGqIwoUBGRaS0ZEfge2b21WMiKIDoj11rt3TYivcAiJ26tbBl5opaRN8IzsqwIkq8mMiKmBHIAGcKdfwldIgoAAAAASUVORK5CYII=">
             </div>
             <div
-                class="group w-[400px] rounded-lg bg-gradient-to-r from-slate-100 to-gray-400 p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#2196f3] flex justify-between"
+                class="group w-[400px] h-[80px] shadow-lg rounded-lg bg-slate-100  p-5 transition relative duration-300 cursor-pointer hover:translate-y-[3px] hover:shadow-[0_-8px_0px_0px_#2196f3] flex justify-between"
             >
             <div><p class="bg-gradient-to-r from-zinc-900 to-indigo-600 bg-clip-text text-transparent text-2xl">  Total Jobs: 
             </p>
@@ -218,23 +224,83 @@
 
 </div>
 
+</div>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-3xl font-semibold mb-4">Dashboard</h1>
+    <div class="overflow-x-auto">
+        <table class="min-w-full border divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach($users as $user)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $user->role }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if($user->banned == 0)
+                                <button class="ban-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" data-user-id="{{ $user->id }}">Ban</button>
+                            @else
+                                <button class="unban-btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" data-user-id="{{ $user->id }}">Unban</button>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function toggleCard(cardId) {
-        const cardContainers = document.querySelectorAll('[id^="cardContent"]');
-        cardContainers.forEach(container => {
-            container.classList.add('hidden');
+    $(document).ready(function(){
+        $('.ban-btn').click(function(){
+            var userId = $(this).data('user-id');
+            $.ajax({
+                url: '/ban-user/' + userId,
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    _method: 'POST'
+                },
+                success: function(response){
+                    if(response.success){
+                        // Update UI
+                        $('.ban-btn[data-user-id="' + userId + '"]').replaceWith('<button class="unban-btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" data-user-id="' + userId + '">Unban</button>');
+                    }
+                }
+            });
         });
 
-        const clickedCardContainer = document.getElementById('cardContent' + cardId);
-        clickedCardContainer.classList.remove('hidden');
-
-        const cartContainer = document.querySelector('.cartContainer');
-        cartContainer.innerHTML = '';
-        cartContainer.appendChild(clickedCardContainer);
-    }
+        $('.unban-btn').click(function(){
+            var userId = $(this).data('user-id');
+            $.ajax({
+                url: '/unban-user/' + userId,
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    _method: 'POST'
+                },
+                success: function(response){
+                    if(response.success){
+                        // Update UI
+                        $('.unban-btn[data-user-id="' + userId + '"]').replaceWith('<button class="ban-btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" data-user-id="' + userId + '">Ban</button>');
+                    }
+                }
+            });
+        });
+    });
 </script>
 
-</div>
+    
+
 
 
 <footer
@@ -449,6 +515,22 @@ background: linear-gradient(0deg, rgba(16,22,128,1) 0%, rgba(45,253,251,0) 100%)
   </div>
 </footer>
 </body>
+
+<script>
+    function toggleCard(cardId) {
+        const cardContainers = document.querySelectorAll('[id^="cardContent"]');
+        cardContainers.forEach(container => {
+            container.classList.add('hidden');
+        });
+
+        const clickedCardContainer = document.getElementById('cardContent' + cardId);
+        clickedCardContainer.classList.remove('hidden');
+
+        const cartContainer = document.querySelector('.cartContainer');
+        cartContainer.innerHTML = '';
+        cartContainer.appendChild(clickedCardContainer);
+    }
+</script>
 
 <script>
     function openForm(jobId) {

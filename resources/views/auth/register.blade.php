@@ -1,62 +1,100 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+</head>
+<body>
+    <div class="min-h-screen bg-no-repeat bg-cover bg-center"
+        style="background-image: url('https://images.unsplash.com/photo-1486520299386-6d106b22014b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80')">
+        <div class="flex justify-end">
+            <div class="bg-white min-h-screen w-1/2 flex justify-center items-center">
+                <div>
+
+                    <form id="registrationForm" method="POST" action="{{ route('register') }}">
+                    @csrf
+                        <div>
+                            <span class="text-sm text-gray-900">Welcome back</span>
+                            <h1 class="text-2xl font-bold">Register to your account</h1>
+                        </div>
+                        <div class="my-3">
+                                <label class="block text-md mb-2" for="name">name</label>
+                                <input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="text" id="name" name="name" placeholder="name">
+                                <div id="nameError" class="text-red-500 hidden">Name is required</div>
+                            </div>
+                            <div>
+                            <select id="role" name="role" required>
+                                <option value="utilisateur">Utilisateur</option>
+                                <option value="entreprise">Entreprise</option>
+                                <option value="freelancer">Freelancer</option>
+                            </select>           
+                            </div>
+                            <div class="my-3">
+                                <label class="block text-md mb-2" for="email">Email</label>
+                                <input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" id="email" name="email" placeholder="email">
+                                <div id="emailError" class="text-red-500 hidden">Invalid email address</div>
+                            </div>
+                            
+                            
+                        <div class="mt-5">
+                            <label class="block text-md mb-2" for="password">Password</label>
+                            <input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" id="password" name="password" placeholder="password">
+                            <div id="passwordError" class="text-red-500 hidden">Password must be at least 8 characters long</div>
+                        </div>
+                            
+                                
+                                <div class="">
+                                    <button id="registerButton" class="mt-4 mb-3 w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-md transition duration-100">register now</button>
+                                    
+                                </div>
+                    </form>
+                    <p class="mt-8"> Do u have an account? <span class="cursor-pointer text-sm text-blue-600"><a href="{{ route('login') }}">Join us</a> </span></p>
+                </div>
+            </div>
         </div>
-        <div>
-            <x-input-label for="role" :value="__('role')" />
-            <select id="role" name="role" required>
-                <option value="utilisateur">Utilisateur</option>
-                <option value="entreprise">Entreprise</option>
-                <option value="freelancer">Freelancer</option>
+    </div>
 
-            </select>           
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
+    <script>
+        document.getElementById('registerButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var password = document.getElementById('password').value.trim();
+            var isValid = true;
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            // Validate name
+            if (name === '') {
+                document.getElementById('nameError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('nameError').classList.add('hidden');
+            }
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            // Validate email
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('emailError').classList.add('hidden');
+            }
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            // Validate password
+            if (password.length < 8) {
+                document.getElementById('passwordError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').classList.add('hidden');
+            }
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            // If all fields are valid, submit the form
+            if (isValid) {
+                document.getElementById('registrationForm').submit();
+            }
+        });
+    </script>
+</body>
+</html>

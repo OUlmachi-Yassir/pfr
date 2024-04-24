@@ -225,7 +225,8 @@
 </div>
 
 </div>
-
+<br><br>
+@if(auth()->user()->role === 'admin')
 <div class="container mx-auto px-4">
     <h1 class="text-3xl font-semibold mb-4">Dashboard</h1>
     <div class="overflow-x-auto">
@@ -257,7 +258,7 @@
         </table>
     </div>
 </div>
-
+@endif
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
@@ -301,7 +302,7 @@
 
     
 
-
+<br><br>
 
 <footer
   class=" text-center text-surface/75  dark:text-white/75 lg:text-left"  style="background: rgb(16,22,128);

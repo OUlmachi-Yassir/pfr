@@ -31,6 +31,8 @@ class LoginController extends Controller
                 return redirect()->route('freelancers.index');
             }
 
+        } else {
+            return redirect()->back()->withErrors(['message' => 'Invalid email or password. Please try again.']);
         }
     }
 

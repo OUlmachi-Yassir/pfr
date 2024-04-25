@@ -7,9 +7,24 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 
 </head>
-<body>
+<style>
+    .oooo {
+      background: rgb(236, 236, 236);
+      background: radial-gradient(circle, rgba(236, 236, 236, 1) 0%, rgba(178, 210, 248, 1) 100%);
+    }
+</style>
+<body class="oooo">
+<div class="flex flex-wrap items-center justify-center ">
 
-<div class="flex justify-center m-auto items-center h-screen w-96">
+      <div class="flex flex-col items-center mt-16">
+        <p class="text-4xl font-bold ">Welcome to <span class="text-4xl ww text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-orange-500">W-W</span>, the ultimate platform</p>
+        <p class="text">that seamlessly combines the professional networking with the dynamic freelancing ecosystem</p>
+        <p class="">Whether you're a skilled professional seeking new opportunities</p>
+</div>
+</div>
+<a href="{{route('dashboard')}}" class="bg-blacke-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">go back</a>
+<br><br>
+<div class="flex justify-center m-auto items-center  w-96">
     <div class="container mx-auto">
         <h2 class="text-2xl font-bold mb-4">Provide Feedback</h2>
         @if (session('success'))

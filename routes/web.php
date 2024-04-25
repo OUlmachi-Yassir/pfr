@@ -11,6 +11,7 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\EnterpriseInfoController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\jobeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsletterController;
@@ -69,6 +70,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/ban-user/{user}', [UserController::class, 'banUser'])->name('ban.user');
     Route::post('/unban-user/{user}', [UserController::class, 'unbanUser'])->name('unban.user');
 
+
+
+    Route::get('/my-feedback', [FeedbackController::class, 'showFeedbackForm'])->name('feedback.form');
+    Route::post('/my-feedback', [FeedbackController::class, 'submitFeedback'])->name('feedback.submit');
 
     Route::post('/enterprise-info', [EnterpriseInfoController::class, 'store'])->name('enterprise.info.store');
     Route::get('/enterprise-info', [EnterpriseInfoController::class, 'entrepriseinfo'])->name('enterprise.info');
@@ -154,6 +159,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/jobe/{jobeId}/apply', [jobeController::class, 'apply'])->name('jobe.apply');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.delete');
     Route::get('/myPost', [PostController::class, 'alo'])->name('myPost');
+
+
+
+    Route::get('/update-enterprise', [EnterpriseInfoController::class, 'edit'])->name('enterprise.edit');
+Route::put('/update-enterprise', [EnterpriseInfoController::class, 'update'])->name('enterprise.update');
+
+
+
+Route::post('/job/like', [JobeController::class, 'like'])->name('jobs.like');
+Route::get('/jobs/{job}/likes', [JobeController::class, 'viewLikes'])->name('jobs.likes');
 });
 
 Route::post('newsletter', NewsletterController::class);

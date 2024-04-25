@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jobe;
 use App\Models\Enterprise;
 use App\Models\FreelancerProject;
+use App\Models\Like;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -139,8 +140,39 @@ public function ajaxSearch(Request $request)
         
         return view('dashboard', compact('jobes', 'userCount', 'enterpriseCount', 'jobCount','users'));
     }
-    
-    
 
+    public function like(Request $request)
+    {
+        $userId = auth()->id();
+        $jobId = $request->input('jobe_id');
+        $job = Jobe::findOrFail($jobId);
+    
+        $like = Like::where('user_id', $userId)->where('jobe_id', $jobId)->first();
+    
+        if ($like) {
+            $like->delete();
+            return response('dislike');
+        } else {
+            Like::create([
+                'user_id' => $userId,
+                'jobe_id' => $jobId,
+            ]);
+            return response('like');
+        }
+    }
+    
+    public function viewLikes(Jobe $job)
+    {
+        $likes = $job->likes()->with('user.profile')->get();
+        return response()->json(['likes' => $likes]);
+    }
+    
 }
+
+
+
+
+
+    
+    
 

@@ -19,5 +19,9 @@ class jobe extends Model
     {
         return $this->hasMany(post::class);
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 
 }

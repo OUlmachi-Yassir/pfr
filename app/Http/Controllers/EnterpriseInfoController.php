@@ -40,8 +40,38 @@ class EnterpriseInfoController extends Controller
         $enterprise->discreption = $request->input('discreption');
         $enterprise->save(); 
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard.entreprise');
     }
+
+
+    public function edit()
+{
+    $user = auth()->user();
+    $enterprise = $user->enterprise;
+    return view('enterprise.edit', compact('enterprise'));
+}
+
+public function update(Request $request)
+{
+    
+    $request->validate([
+        'slogan' => 'nullable|string|max:255',
+        'industrie' => 'nullable|string|max:255',
+        'discreption' => 'nullable|string',
+    ]);
+
+    $user = auth()->user();
+    $enterprise = $user->enterprise;
+
+    $enterprise->update([
+        'slogan' => $request->input('slogan'),
+        'industrie' => $request->input('industrie'),
+        'discreption' => $request->input('discreption'),
+    ]);
+
+    return redirect()->back()->with('success', 'Enterprise profile updated successfully!');
+}
+
     
 }
 

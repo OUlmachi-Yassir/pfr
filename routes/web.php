@@ -48,11 +48,11 @@ Route::get('/login', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','banned'])->name('dashboard');
 
 Route::get('/myPost', function () {
     return view('myPost');
-})->middleware(['auth', 'verified'])->name('myPost');
+})->middleware(['auth', 'verified','banned'])->name('myPost');
 
 Route::get('/', function () {
     $feedbacks = Feedback::paginate(3);
@@ -65,7 +65,7 @@ Route::post('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/check', [LoginController::class, 'check'])->name('check');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','banned'])->group(function () {
 
     Route::post('/ban-user/{user}', [UserController::class, 'banUser'])->name('ban.user');
     Route::post('/unban-user/{user}', [UserController::class, 'unbanUser'])->name('unban.user');
@@ -171,11 +171,12 @@ Route::post('/job/like', [JobeController::class, 'like'])->name('jobs.like');
 Route::get('/jobs/{job}/likes', [JobeController::class, 'viewLikes'])->name('jobs.likes');
 
 
-Route::get('/banned', function () {
-    Auth::logout();
-    
-    return view('banned');
-})->name('banned.error');
+
 });
 
 Route::post('newsletter', NewsletterController::class);
+Route::get('/banned', function () {
+    Auth::logout();
+
+    return view('banned');
+})->name('banned.error');

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+            <link rel="preconnect" href="https://fonts.bunny.net">
+
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
         <link href='https://fonts.googleapis.com/css?family=Zen Dots' rel='stylesheet'>
@@ -20,6 +23,8 @@
     
 </style>
 <body class="oooo">
+<div class="">
+    
 <nav class="mx-4 shadow-xl rounded-full hover:border-slate-400">
     <div class=" flex flex-wrap items-center justify-between my-2 mx-4">
     <a href="{{url('/')}}" class="flex items-center">
@@ -41,9 +46,11 @@
                 <!-- Dropdown menu -->
                 <div id="dropdownNavbar" class="hidden bg-white text-base z-10 list-none divide-y divide-gray-100 rounded shadow my-4 w-44">
                     <ul class="py-1" aria-labelledby="dropdownLargeButton">
+                    @if(auth()->user()->role === 'utilisateur')
                     <li>
                         <a href="{{route('dashboard')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
                     </li>
+                    @endif
                     @if(auth()->user()->role === 'freelancer')
                     <li>
                         <a href="{{route('freelancers.index')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Project</a>
@@ -77,6 +84,10 @@
         </div>
     </div>
     </nav>
+
+</div>
+
+<script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
 
 <div class="flex flex-wrap items-center justify-center ">
 

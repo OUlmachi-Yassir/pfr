@@ -13,11 +13,11 @@
     <div class="container mx-auto">
         <h2 class="text-2xl font-bold mb-4">Provide Feedback</h2>
         @if (session('success'))
-    <div id="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 relative">
-        {{ session('success') }}
-        <span id="closeIcon" class="absolute top-0 right-0 mr-4 mt-3 cursor-pointer">&times;</span>
-    </div>
-@endif
+            <div id="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 relative">
+                {{ session('success') }}
+                <span id="closeIcon" class="absolute top-0 right-0 mr-4 mt-3 cursor-pointer">&times;</span>
+            </div>
+        @endif
 
         <form action="{{ route('feedback.submit') }}" method="POST">
             @csrf
@@ -30,7 +30,18 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const closeIcon = document.getElementById('closeIcon');
+        const successMessage = document.getElementById('successMessage');
 
+        if (closeIcon && successMessage) {
+            closeIcon.addEventListener('click', function() {
+                successMessage.style.display = 'none';
+            });
+        }
+    });
+</script>
     
 </body>
 </html>

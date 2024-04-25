@@ -88,7 +88,7 @@
                     <a href="{{route('profile.edit')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Profile</a>
                   </li>
                   <li>
-                    <a href="{{route('feedback.form')}}" class="text-gray-700 hover:bg-gray-50 border-b border-gray-100 md:hover:bg-transparent md:border-0 block pl-3 pr-4 py-2 md:hover:text-blue-700 md:p-0">My-Feed</a>
+                    <a href="{{route('feedback.form')}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">My-Feed</a>
                   </li>
                   @endif
                 </ul>
@@ -128,6 +128,7 @@
   </x-slot>
 
   <br><br>
+  @if(auth()->user()->role === 'utilisateur')
   <div class="flex flex-col justify-center items-center">
     <div class="relative rounded-lg w-1/3 overflow-hidden  before:absolute before:w-12 before:h-12 before:content[''] before:right-0 before:bg-violet-500 before:rounded-full before:blur-lg  after:absolute after:-z-10 after:w-20 after:h-20 after:content['']  after:bg-rose-300 after:right-12 after:top-3 after:rounded-full after:blur-lg flex justify-center m-auto">
       <input type="text" id="searchInput" placeholder="Search by title, competence, or type" class="relative bg-transparent ring-0 outline-none border border-neutral-500 text-white placeholder-white-700 text-sm rounded-lg focus:ring-violet-500 placeholder-opacity-60 focus:border-violet-500 block w-full p-2.5 checked:bg-emerald-500">
@@ -305,6 +306,7 @@
       }
     </script>
   </div>
+  @endif
   <br><br>
   @if(auth()->user()->role === 'admin')
   <div class="container mx-auto px-4">

@@ -169,6 +169,13 @@ Route::put('/update-enterprise', [EnterpriseInfoController::class, 'update'])->n
 
 Route::post('/job/like', [JobeController::class, 'like'])->name('jobs.like');
 Route::get('/jobs/{job}/likes', [JobeController::class, 'viewLikes'])->name('jobs.likes');
+
+
+Route::get('/banned', function () {
+    Auth::logout();
+    
+    return view('banned');
+})->name('banned.error');
 });
 
 Route::post('newsletter', NewsletterController::class);

@@ -21,7 +21,11 @@ class LoginController extends Controller
             
        
         $user = Auth::user();
+        if($user->banned == 1){    
+            return redirect()->route('banned.error');
+        }
         if ($user->role === 'utilisateur') {
+           
             return redirect()->route('dashboard');
             } elseif ($user->role === 'entreprise') {
             return redirect()->route('dashboard.entreprise');
